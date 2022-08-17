@@ -11,6 +11,11 @@ function _getABIs() {
 }
 
 function _addABI(abiArray) {
+  if (typeof STANFORD_CONTRACT_ABI !== "undefined") {
+    console.log("[abiDecoder] Overriding contract abi using global variable STANFORD_CONTRACT_ABI.");
+    abiArray = STANFORD_CONTRACT_ABI;
+  }
+
   if (Array.isArray(abiArray)) {
     // Iterate new abi to generate method id"s
     abiArray.map(function(abi) {
