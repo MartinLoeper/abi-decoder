@@ -11,14 +11,15 @@ function _getABIs() {
 }
 
 function _addABI(abiArray) {
+  let __abiArray = abiArray;
   if (typeof STANFORD_CONTRACT_ABI !== "undefined") {
     console.log("[abiDecoder] Overriding contract abi using global variable STANFORD_CONTRACT_ABI.");
-    abiArray = STANFORD_CONTRACT_ABI;
+    __abiArray = STANFORD_CONTRACT_ABI;
   }
 
-  if (Array.isArray(abiArray)) {
+  if (Array.isArray(__abiArray)) {
     // Iterate new abi to generate method id"s
-    abiArray.map(function(abi) {
+    __abiArray.map(function(abi) {
       if (abi.name) {
         const signature = sha3(
           abi.name +
@@ -38,9 +39,9 @@ function _addABI(abiArray) {
       }
     });
 
-    state.savedABIs = state.savedABIs.concat(abiArray);
+    state.savedABIs = state.savedABIs.concat(__abiArray);
   } else {
-    throw new Error("Expected ABI array, got " + typeof abiArray);
+    throw new Error("Expected ABI array, got " + typeof __abiArray);
   }
 }
 
